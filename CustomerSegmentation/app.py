@@ -23,9 +23,8 @@ st.set_page_config(
 # SIMPLE LOGIN & LOGOUT (DROP-IN BLOCK)
 # ======================================================
 
-# Demo users (change later if needed)
 USER_CREDENTIALS = {
-    "user": "user123",
+    "user12": "123456",
 }
 
 # Session state setup
@@ -84,27 +83,6 @@ def load_data():
     return pd.read_csv("marketing_campaign_c.csv")
 
 df = load_data()
-
-# ===============================
-# RFM FEATURE ENGINEERING FUNCTION
-# ===============================
-@st.cache_data
-def create_rfm(df):
-    rfm = df.copy()
-    rfm["Frequency"] = (
-        rfm["NumWebPurchases"]
-        + rfm["NumCatalogPurchases"]
-        + rfm["NumStorePurchases"]
-    )
-    rfm["Monetary"] = (
-        rfm["MntWines"]
-        + rfm["MntFruits"]
-        + rfm["MntMeatProducts"]
-        + rfm["MntFishProducts"]
-        + rfm["MntSweetProducts"]
-        + rfm["MntGoldProds"]
-    )
-    return rfm[["ID", "Recency", "Frequency", "Monetary"]]
 
 # ===============================
 # RFM FEATURE ENGINEERING FUNCTION
@@ -1258,4 +1236,5 @@ elif page == "Purchase Intent Prediction":
                 st.info("Recommended Action: Send personalized promotions.")
             else:
                 st.warning(f"⚠ Low Purchase Intent (Probability: {prob:.2f})")
+
                 st.info("Recommended Action: Use discounts or re-engagement campaigns.")
